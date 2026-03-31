@@ -109,7 +109,9 @@ The application uses a **single User collection** to manage all roles:
 
 - **Super Admin**
   - Can create Admins and Users
-  - `createdBy` → null | adminsId
+  ```
+  createdBy → null | adminId
+  ```
 
 - **Admin**
   - Can create Users
