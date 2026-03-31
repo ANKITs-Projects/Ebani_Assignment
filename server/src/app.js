@@ -31,5 +31,8 @@ app.use('/api/superadmin', superAdminRoute)
 app.use('/api/admin', adminRoute)
 app.use('/api/user', userRoute)
 
+app.get("/", (req, res) => {
+  res.send("API is running 🚀");
+});
 
 module.exports = app
