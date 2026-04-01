@@ -10,7 +10,11 @@ class LoginController {
       // 🚫 Stop Vercel + browser from caching the response
       res.set("Cache-Control", "no-store");
       res
-        .cookie("token", data.token)
+        .cookie("token", data.token,{
+    httpOnly: true,
+    secure: true,        // ✅ REQUIRED for HTTPS (Vercel)
+    sameSite: "none",    // ✅ REQUIRED for cross-origin
+  })
         .status(200)
         .json({
           success: true,
