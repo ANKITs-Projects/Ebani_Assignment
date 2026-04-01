@@ -14,7 +14,7 @@ class LoginServices {
     try {
       const { email, password } = data;
 
-      const user = await this.userModel.findOne({ email });
+      const user = await this.userModel.findOne({ email }).select('+password');
 
       if (!user) throw new Error("User not exist");
 
