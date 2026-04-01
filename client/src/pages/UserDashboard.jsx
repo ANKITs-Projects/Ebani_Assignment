@@ -11,10 +11,13 @@ export default function UserDashboard() {
   const [modalType, setModalType] = useState("")
   const [selectedId, setSelectedId] = useState('')
   const [initialData, setInitialData] = useState('')
+  const [loding, setLoding] = useState(false)
 
   const fetchTasks = async () => {
+    setLoding(true)
     const res = await apicall("/user/gettask")
     setTasks(res.data)
+    setLoding(false)
   }
 
   useEffect(() => {
@@ -46,6 +49,7 @@ export default function UserDashboard() {
   };
 
   const handleDelete = async (id) => {
+    setLoding(true)
     await apicall(`/user/delettask/${id}`, "DELETE")
     fetchTasks()
   };
@@ -54,22 +58,22 @@ export default function UserDashboard() {
     <div className="p-6">
       <div className="flex justify-between mb-5">
         <h1 className="text-xl font-bold">User Dashboard</h1>
-
         <button
           onClick={() => openModal("createTask")}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
         >
           + Create Task
         </button>
         <button
           onClick={() => setRole("")}
-          className="bg-red-400 text-white px-4 py-2 rounded"
+          className="bg-red-400 text-white px-4 py-2 rounded cursor-pointer"
         >
           Logout
         </button>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3">       
+        { loding && <h1 className="text-xl font-bold">Loding...</h1>}
         {tasks.length > 0 &&
           tasks.map((task) => (
             <div
@@ -80,14 +84,14 @@ export default function UserDashboard() {
 
               <div className="flex gap-3">
                 <button
-                  className="text-blue-500"
+                  className="text-blue-500 cursor-pointer"
                   onClick={() => openModal("editTask", task, task._id)}
                 >
                   Edit
                 </button>
 
                 <button
-                  className="text-red-500"
+                  className="text-red-500 cursor-pointer"
                   onClick={() => handleDelete(task._id)}
                 >
                   Delete

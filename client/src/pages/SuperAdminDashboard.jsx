@@ -10,10 +10,13 @@ export default function SuperAdminDashboard() {
   const [modalType, setModalType] = useState("") 
   const [selectedId, setSelectedId] = useState("")
   const [initialData, setInitialData] = useState("")
+  const [loding, setLoding] = useState(false)
 
   const fetchAdmins = async () => {
+    setLoding(true)
     const res = await apicall("/superadmin/getadmins")
     setAdmins(res.data)
+    setLoding(false)
   };
 
   useEffect(() => {
@@ -60,6 +63,7 @@ export default function SuperAdminDashboard() {
   };
 
   const handleDelete = async (id, type) => {
+    setLoding(true)
     if (type === "admin") {
       await apicall(`/superadmin/deleteadmin/${id}`, "DELETE")
     } else {
@@ -73,22 +77,23 @@ export default function SuperAdminDashboard() {
       
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-2xl font-bold">Super Admin Dashboard</h1>
+        
         <button
           onClick={() => openModal("createAdmin")}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 cursor-pointer py-2 rounded"
         >
           + Create Admin
         </button>
         <button
           onClick={() => setRole("")}
-          className="bg-red-400 text-white px-4 py-2 rounded"
+          className="bg-red-400 text-white px-4 cursor-pointer py-2 rounded"
         >
           Logout
         </button>
       </div>
 
-
       <div className="space-y-4">
+      { loding && <h1 className="text-xl font-bold">Loding...</h1>}
         {admins.length > 0 &&
           admins.map((admin) => (
             <div key={admin.admin._id} className="border p-4 rounded-lg shadow">
@@ -98,7 +103,7 @@ export default function SuperAdminDashboard() {
 
                 <div className="flex gap-2">
                   <button
-                    className="text-blue-500"
+                    className="text-blue-500 cursor-pointer"
                     onClick={() =>
                       openModal("editAdmin", admin.admin, admin.admin._id)
                     }
@@ -107,7 +112,7 @@ export default function SuperAdminDashboard() {
                   </button>
 
                   <button
-                    className="text-green-500"
+                    className="text-green-500 cursor-pointer"
                     onClick={() =>
                       openModal("createUser", null, admin.admin._id)
                     }
@@ -116,7 +121,7 @@ export default function SuperAdminDashboard() {
                   </button>
 
                   <button
-                    className="text-red-500"
+                    className="text-red-500 cursor-pointer"
                     onClick={() => handleDelete(admin.admin._id, "admin")}
                   >
                     Delete
@@ -135,14 +140,14 @@ export default function SuperAdminDashboard() {
 
                     <div className="flex gap-2">
                       <button
-                        className="text-blue-500"
+                        className="text-blue-500 cursor-pointer"
                         onClick={() => openModal("editUser", user, user._id)}
                       >
                         Edit
                       </button>
 
                       <button
-                        className="text-red-500"
+                        className="text-red-500 cursor-pointer"
                         onClick={() => handleDelete(user._id, "user")}
                       >
                         Delete

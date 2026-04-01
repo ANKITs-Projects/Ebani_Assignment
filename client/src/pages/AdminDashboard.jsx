@@ -11,11 +11,14 @@ export default function AdminDashboard() {
   const [modalType, setModalType] = useState("")
   const [selectedId, setSelectedId] = useState("")
   const [initialData, setInitialData] = useState("")
+  const [loding, setLoding] = useState(false)
 
 
   const fetchUsers = async () => {
+    setLoding(true)
     const res = await apicall("/admin/getusers")
     setUsers(res.data)
+    setLoding(false)
   }
 
   useEffect(() => {
@@ -47,8 +50,10 @@ export default function AdminDashboard() {
   };
 
   const handleDelete = async (id) => {
+    setLoding(true)
     await apicall(`/admin/deleteuser/${id}`, "DELETE")
     fetchUsers()
+    setLoding(false)
   }
 
   return (
@@ -56,22 +61,22 @@ export default function AdminDashboard() {
       
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-
+        
         <button
           onClick={() => openModal("createUser")}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 py-2 cursor-pointer rounded"
         >
           + Create User
         </button>
         <button
           onClick={() => setRole("")}
-          className="bg-red-400 text-white px-4 py-2 rounded"
+          className="bg-red-400 text-white cursor-pointer px-4 py-2 rounded"
         >
           Logout
         </button>
       </div>
-
       <div className="space-y-4">
+      { loding && <h1 className="text-xl font-bold">Loding...</h1>}
         {users.length > 0 &&
           users.map((user) => (
             <div
@@ -86,14 +91,14 @@ export default function AdminDashboard() {
 
               <div className="flex gap-3">
                 <button
-                  className="text-blue-500"
+                  className="text-blue-500 cursor-pointer"
                   onClick={() => openModal("editUser", user, user._id)}
                 >
                   Edit
                 </button>
 
                 <button
-                  className="text-red-500"
+                  className="text-red-500 cursor-pointer"
                   onClick={() => handleDelete(user._id)}
                 >
                   Delete

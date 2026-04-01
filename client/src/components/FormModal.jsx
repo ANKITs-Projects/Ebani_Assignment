@@ -96,12 +96,12 @@ export default function FormModal({
           )}
 
           <div className="flex justify-end gap-2">
-            <button className="px-3 py-1 bg-gray-300 rounded" onClick={onClose}>
+            <button className="px-3 py-1 bg-gray-300 rounded cursor-pointer" onClick={onClose}>
               Cancel
             </button>
 
             <button
-              className="px-3 py-1 bg-blue-500 text-white rounded"
+              className="px-3 py-1 bg-blue-500 text-white rounded cursor-pointer"
               onClick={() => onSubmit(form)}
             >
               Submit

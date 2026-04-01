@@ -6,6 +6,7 @@ import { roleContext } from "../constext/userRole.context";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loding, setLoding] = useState(false)
   const { setRole } = useContext(roleContext);
 
   const navigate = useNavigate();
@@ -20,15 +21,18 @@ export default function Login() {
       return
     }
     try {
+      setLoding(true)
       const res = await apicall("/login", "POST", { email, password });
 
       const data = res.user;
       setRole(data.role);
+      setLoding(false)
       if (data.role === "SuperAdmin") navigate("/superadmin");
       if (data.role === "Admin") navigate("/admin");
       if (data.role === "User") navigate("/user");
     } catch (err) {
       alert(err.message);
+      setLoding(false)
     }
   };
 
@@ -57,11 +61,12 @@ export default function Login() {
             <div className="flex justify-center gap-2">
 
             <button
-              className="px-3 py-1 bg-blue-500 text-white  rounded"
+              className="px-3 py-1 bg-blue-500 text-white cursor-pointer rounded"
               onClick={handleLogin}
             >
               Login
             </button>
+            { loding && <h1 className="text-xl font-bold">LogingIn...</h1>}
           </div>
           </div>
         </div>
