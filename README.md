@@ -4,7 +4,22 @@ This backend application implements a **Role-Based Access Control (RBAC)** syste
 
 - 👑 Super Admin  
 - 🧑‍💼 Admin  
-- 👤 User  
+- 👤 User
+
+---
+## 🌐 Live URL
+https://ebani-assignment-p25e.vercel.app/
+
+
+- SuperAdmin LoginId Password 
+``` 
+superadmin1@mail.com
+```
+```
+SuperAdmin@123
+```
+
+---
 
 ## 📌 Tech Stack
 
