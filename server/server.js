@@ -1,6 +1,6 @@
 require('dotenv').config({path: "./.env"})
-const app = require("./src/app")
 const db = require('./src/config/db')
+const app = require("./src/app")
 
 
 
