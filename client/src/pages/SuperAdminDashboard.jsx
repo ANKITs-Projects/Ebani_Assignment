@@ -10,13 +10,13 @@ export default function SuperAdminDashboard() {
   const [modalType, setModalType] = useState("") 
   const [selectedId, setSelectedId] = useState("")
   const [initialData, setInitialData] = useState("")
-  const [loding, setLoding] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const fetchAdmins = async () => {
-    setLoding(true)
+    setLoading(true)
     const res = await apicall("/superadmin/getadmins")
     setAdmins(res.data)
-    setLoding(false)
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function SuperAdminDashboard() {
   };
 
   const handleDelete = async (id, type) => {
-    setLoding(true)
+    setLoading(true)
     if (type === "admin") {
       await apicall(`/superadmin/deleteadmin/${id}`, "DELETE")
     } else {
@@ -93,7 +93,7 @@ export default function SuperAdminDashboard() {
       </div>
 
       <div className="space-y-4">
-      { loding && <h1 className="text-xl font-bold">Loding...</h1>}
+      { loading && <h1 className="text-xl font-bold">Loading...</h1>}
         {admins.length > 0 &&
           admins.map((admin) => (
             <div key={admin.admin._id} className="border p-4 rounded-lg shadow">

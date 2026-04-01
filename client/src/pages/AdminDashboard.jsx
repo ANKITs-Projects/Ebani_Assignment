@@ -11,14 +11,14 @@ export default function AdminDashboard() {
   const [modalType, setModalType] = useState("")
   const [selectedId, setSelectedId] = useState("")
   const [initialData, setInitialData] = useState("")
-  const [loding, setLoding] = useState(false)
+  const [loading, setLoading] = useState(false)
 
 
   const fetchUsers = async () => {
-    setLoding(true)
+    setLoading(true)
     const res = await apicall("/admin/getusers")
     setUsers(res.data)
-    setLoding(false)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -50,10 +50,10 @@ export default function AdminDashboard() {
   };
 
   const handleDelete = async (id) => {
-    setLoding(true)
+    setLoading(true)
     await apicall(`/admin/deleteuser/${id}`, "DELETE")
     fetchUsers()
-    setLoding(false)
+    setLoading(false)
   }
 
   return (
@@ -76,7 +76,7 @@ export default function AdminDashboard() {
         </button>
       </div>
       <div className="space-y-4">
-      { loding && <h1 className="text-xl font-bold">Loding...</h1>}
+      { loading && <h1 className="text-xl font-bold">Loading...</h1>}
         {users.length > 0 &&
           users.map((user) => (
             <div

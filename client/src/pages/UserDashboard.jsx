@@ -11,13 +11,13 @@ export default function UserDashboard() {
   const [modalType, setModalType] = useState("")
   const [selectedId, setSelectedId] = useState('')
   const [initialData, setInitialData] = useState('')
-  const [loding, setLoding] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const fetchTasks = async () => {
-    setLoding(true)
+    setLoading(true)
     const res = await apicall("/user/gettask")
     setTasks(res.data)
-    setLoding(false)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function UserDashboard() {
   };
 
   const handleDelete = async (id) => {
-    setLoding(true)
+    setLoading(true)
     await apicall(`/user/delettask/${id}`, "DELETE")
     fetchTasks()
   };
@@ -73,7 +73,7 @@ export default function UserDashboard() {
       </div>
 
       <div className="space-y-3">       
-        { loding && <h1 className="text-xl font-bold">Loding...</h1>}
+        { loading && <h1 className="text-xl font-bold">Loading...</h1>}
         {tasks.length > 0 &&
           tasks.map((task) => (
             <div
