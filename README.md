@@ -32,7 +32,7 @@ Route → Controller → Service → Database
 - Do not contain business logic
 
 **Examples:**
-- `AuthController`
+- `LoginController`
 - `SuperAdminController`
 - `AdminController`
 - `UserController`
@@ -44,10 +44,10 @@ Route → Controller → Service → Database
 - Communicate with database model
 
 **Examples:**
-- `AuthService`
-- `UserService`
-- `AdminService`
+- `LoginService`
 - `SuperAdminService`
+- `AdminService`
+- `UserService`
 
 ---
 
