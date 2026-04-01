@@ -11,9 +11,17 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    if(!email){
+      alert("Email must not be empty!")
+      return
+    }
+    if(!password){
+      alert("Password must not be empty!")
+      return
+    }
     try {
       const res = await apicall("/login", "POST", { email, password });
-      
+
       const data = res.user;
       setRole(data.role);
       if (data.role === "SuperAdmin") navigate("/superadmin");
@@ -25,20 +33,39 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-4">
-      <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-      <input
-        placeholder="Password"
-        type="text"
-        onChange={(e) => setPassword(e.target.value)}
-      />
+    <div className="p-6">
+      <div className="flex justify-center items-center mb-5">
+        <h1 className="text-2xl font-bold">Login here...</h1>
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-xl w-96 shadow-lg">
+            <input
+              name="email"
+              placeholder="Email"
+              className="w-full border p-2 mb-3 rounded"
+              value={email}
+              onChange={(e)=> setEmail(e.target.value)}
+            />
+            <input
+              type="text"
+              name="password"
+              placeholder="Password"
+              className="w-full border p-2 mb-3 rounded"
+              value={password}
+              onChange={(e)=> setPassword(e.target.value)}
+            />
 
-      <button
-        onClick={handleLogin}
-        className="bg-blue-500 text-white px-4 py-2"
-      >
-        Login
-      </button>
+            <div className="flex justify-center gap-2">
+
+            <button
+              className="px-3 py-1 bg-blue-500 text-white  rounded"
+              onClick={handleLogin}
+            >
+              Login
+            </button>
+          </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
